@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML 5 Web Storage</title>
+
+<link href="reset.css" type="text/css" rel="stylesheet" />
+
+<link href="webStorage_Style.css" type="text/css" rel="stylesheet" />
+
+<script>
+window.addEventListener("load",init);
+
+function init(){
+	if(typeof(Storage)!=="undefined"){
+	
+	display();
+	
+	var button=document.getElementById("button");
+	button.addEventListener("click",saveInfo);
+	}
+	
+	else{
+	//old bowser	
+	}
+}
+
+function saveInfo(){
+	var donut=document.getElementById("donut").value;
+	var toppings=document.getElementById("toppings").value;
+    var isGift;
+    var numDonuts=document.getElementById("numDonuts").value;
+    
+    if(document.getElementById("isGiftYes").checked)
+        {
+            isGift = "Yes";
+        }
+    else
+        isGift = "No";
+    
+	
+	localStorage.setItem("donutName",donut);
+	localStorage.setItem("toppings",toppings);
+	localStorage.setItem("gift",isGift);
+    localStorage.setItem("numDonuts",numDonuts);
+	
+	display();
+	
+}
+
+function display(){
+	var rightBox=document.getElementById("useroutput");
+	var theDonut=localStorage.getItem("donutName");
+	var theToppings=localStorage.getItem("toppings");
+    var theGift=localStorage.getItem("gift");
+    var theNumDonuts=localStorage.getItem("numDonuts");
+	
+	if(theToppings==undefined){
+		document.getElementById("useroutput").innerHTML="";
+	}
+	else{ document.getElementById("useroutput").innerHTML="OUTPUT  <hr /><br /><br />Donut Type: "+theDonut+"<br /><br />  Toppings: "+theToppings+"<br><br>  Gift Wrapped: "+theGift+"<br><br>  "+theNumDonuts+" donuts.";
+	}
+	
+}
+
+</script>
+
+
+
+</head>
+
+<body>
+<div id="main">
+	<section id="userinput">
+    INPUT <br>
+	<hr />
+    <br /><br />
+    <form>
+    
+    <div>Donut: <br /><input type="input" id="donut" size="20"></div>
+    <br />
+    <div>Toppings:<br /> <textarea id="toppings" rows="10"></textarea></div>
+    <br />
+    <div>
+        Gift Wrapped:<input type="radio" id="isGiftYes" name="gift" value="yes">Yes <input type="radio" id="isGiftNo" name="gift" value="no" checked="checked">No   
+    </div>
+    <br />
+    How Many?: <input type="number" id="numDonuts" min="1" max="12" value="1">
+    <br />
+    <div><input type="button" id="button" value="Save"></div>
+    </form>
+    </section>
+    
+    
+    <section id="useroutput">
+ OUTPUT  
+ 	<hr />
+    <br /><br />
+    </section>
+
+</div>
+
+
+</body>
+</html>
